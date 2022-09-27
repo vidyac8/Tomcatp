@@ -31,7 +31,7 @@ pipeline {
 	//}
 	stage ('Deployment'){
 		steps{
-	        deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://44.202.123.22:8080/')], contextPath: 'BOOKZY', war: 'target/*.war'
+	        deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://54.221.131.236:8080/')], contextPath: 'BOOKZY', war: 'target/*.war'
 		}
 	}
 	stage ('Notification'){
