@@ -4,19 +4,18 @@ pipeline {
     	maven 'local_maven'
 	}
 	stages {
-    	
     	stage('clean') {
         	steps {
         	sh "mvn clean"  	 
         	}
     	}
+	
     	stage('Build') {
         	steps {
         	sh "mvn compile"  	 
         	}
     	}
-   	 
-    	stage('Test') {
+   	stage('Test') {
             steps {
                 sh 'mvn test'
             }
@@ -26,19 +25,26 @@ pipeline {
                 }
             }
         }
-
-
-        stage ('Deployment'){
-	       deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://3.95.9.73:8080/')], contextPath: 'webapp', war: 'target/*.war'
+	stage ('Archive Artifacts'){
+		steps{
+		archiveArtifacts artifacts: 'target/*.war'
+		}
 	}
-	
+	stage ('Deployment'){
+		steps{
+	        deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://52.4.127.202:8080/')], contextPath: 'BOOKZY', war: 'target/*.war'
+		}
+	}
 	stage ('Notification'){
+		steps{
 		emailext (
-		     subject: "Job Completed",
+		      subject: "Job Completed",
 		      body: "Jenkins Pipeline Job for Maven Build got completed !!!",
-		      to: "vidya.c8@gmail.com"
+		      to: "build-alerts@example.com"
 		   )
-	}
-
+	        }
+           }
+	
+    	
 }
 }
