@@ -25,11 +25,11 @@ pipeline {
                 }
             }
         }
-	stage ('Archive Artifacts'){
-		steps{
-		archiveArtifacts artifacts: 'target/*.war'
-		}
-	}
+	//stage ('Archive Artifacts'){
+	//	steps{
+	//	archiveArtifacts artifacts: 'target/*.war'
+	//	}
+	//}
 	stage ('Deployment'){
 		steps{
 	        deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://52.4.127.202:8080/')], contextPath: 'BOOKZY', war: 'target/*.war'
