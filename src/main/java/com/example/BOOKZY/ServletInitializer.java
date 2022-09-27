@@ -1,5 +1,4 @@
 package com.example.BOOKZY;
-package com.solution.mobiquity;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
