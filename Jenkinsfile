@@ -4,15 +4,14 @@ pipeline {
     	maven 'local_maven'
 	}
 	stages {
-    	stage('clean') {
-        	steps {
-        	sh "mvn clean"  	 
-        	}
-    	}
-	
+	stage ('checkout code'){
+		steps{
+		checkout scm
+		}
+	}	
     	stage('Build') {
         	steps {
-        	sh "mvn compile"  	 
+        	sh "mvn clean install -Dmaven.test.skip=true"	 
         	}
     	}
    	stage('Test') {
